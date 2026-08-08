@@ -1,0 +1,23 @@
+SmartSafe Master — indicator ownership cleanup
+
+1. Master-side LEDs and buzzer were removed.
+   - Removed PA3 buzzer and PD6/PD7 LED definitions from config.h.
+   - Removed their initialization and all GPIO writes from main.c.
+
+2. The Master now only detects and reports events.
+   - LOGIN_OK, FAILURE, BREACH, TAMPER, POWER_FAIL and POWER_OK are sent by USART.
+   - The Slave is responsible for its own LCD, LEDs and buzzer behavior.
+
+3. Local alarm state was removed.
+   - Removed alarm_active and alarm_counter from timer.c/timer.h.
+   - Removed alert_start()/alert_clear() and the alarm countdown logic.
+   - Inactivity sleep now depends only on lockout and servo state.
+
+4. Tamper re-trigger handling is now self-contained.
+   - A tamper event disarms the detector.
+   - It rearms only after a stable ADC interval, preventing repeated messages
+     from the same disturbance without relying on a local alarm timer.
+
+5. Master LCD hold times remain for user feedback only.
+   - TAMPER_UI_HOLD_SEC controls how long the Master LCD shows tamper text.
+   - FAIL_UI_HOLD_SEC controls how long it shows a wrong-password message.

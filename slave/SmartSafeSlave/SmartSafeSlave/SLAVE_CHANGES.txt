@@ -1,0 +1,28 @@
+SmartSafe Slave — final alignment with the updated Master
+
+1. Added green LED on PD6; red LED remains on PD7; buzzer remains on PA3.
+2. USART is receive-only at 9600 baud, 8N1.
+3. Accepted Master messages are compared exactly:
+   LOGIN_OK, FAILURE, BREACH, Tamper, POWER_FAIL,
+   POWER RESTORED, WDT_RESET.
+4. LOGIN_OK turns the green LED on for 5 seconds.
+5. FAILURE, BREACH and Tamper turn the red LED and buzzer on for 5 seconds.
+6. POWER_FAIL starts a persistent red LED/buzzer alarm.
+7. POWER RESTORED is the only message that clears the persistent power alarm.
+8. Slave LCD displays user-friendly two-line status text.
+9. Log-dump sections between "=== LOG DUMP ===" and "=== END ===" are ignored.
+10. Unrecognized lines such as LOG CLEARED are ignored.
+11. Replaced substring matching with exact strcmp() checks to stop log lines
+    from falsely triggering alarms.
+12. Added overflow-safe line reception: overlong lines are discarded until CR/LF.
+13. Replaced <util/delay.h> with Timer0 polling delay_ms()/delay_us().
+14. Timer2 initialization now stops, resets and clears stale flags before start.
+15. Watchdog remains enabled with a 2-second timeout.
+
+Hardware map:
+  LCD data PC0..PC7; RS PA0; EN PA2; R/W tied to GND.
+  Buzzer PA3.
+  Green LED PD6 through a current-limiting resistor.
+  Red LED PD7 through a current-limiting resistor.
+  Master PD1/TXD -> Slave PD0/RXD.
+  Master and Slave grounds must be common.

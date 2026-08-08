@@ -1,0 +1,94 @@
+# SmartSafe repository ignore rules
+# Project stack: Atmel Studio / AVR-GCC + Proteus + LaTeX documentation.
+
+# -----------------------------------------------------------------------------
+# OS / editor temporary files
+# -----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+*.swp
+*.swo
+*.tmp
+*.temp
+
+# -----------------------------------------------------------------------------
+# Atmel Studio / Visual Studio user-specific state and caches
+# Keep: *.atsln, *.cproj, and *.componentinfo.xml (project metadata).
+# -----------------------------------------------------------------------------
+.vs/
+*.atsuo
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# -----------------------------------------------------------------------------
+# Atmel Studio / AVR-GCC build output
+# Debug/ currently contains generated Makefiles, dependency files, objects,
+# firmware images, maps, listings, and ELF files for both master and slave.
+# -----------------------------------------------------------------------------
+[Dd]ebug/
+[Rr]elease/
+
+*.o
+*.d
+*.elf
+*.hex
+*.eep
+*.eeprom
+*.srec
+*.lss
+*.map
+*.lst
+*.a
+*.usersignatures
+
+# -----------------------------------------------------------------------------
+# Proteus local state / automatic backups
+# Keep the real simulation project: SmartSafe.pdsprj
+# -----------------------------------------------------------------------------
+/Project Backups/
+*.pdsprj.*.workspace
+*.pdsbak
+*.pdsprj.bak
+
+# -----------------------------------------------------------------------------
+# LaTeX generated/intermediate files
+# PDFs are intentionally NOT ignored because this archive contains report PDFs
+# that appear to be project deliverables, including PDFs without matching .tex.
+# -----------------------------------------------------------------------------
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.dvi
+*.fdb_latexmk
+*.fls
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+_minted-*/
+
+# -----------------------------------------------------------------------------
+# Generic backup files
+# -----------------------------------------------------------------------------
+*.bak
+*.old
+*.orig
+*.rej

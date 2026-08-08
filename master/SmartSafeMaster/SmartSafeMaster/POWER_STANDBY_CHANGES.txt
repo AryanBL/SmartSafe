@@ -1,0 +1,29 @@
+SmartSafe Master — applied power/sleep/timing changes
+
+1. Confirmed POWER_FAIL behavior
+   - Send POWER_FAIL and wait until the final USART stop bit is transmitted.
+   - Log EVT_POWER_FAIL to the external SPI EEPROM.
+   - Disable Timer0/1/2, timer interrupts, INT0, ADC, SPI, USART, and
+     watchdog. The Master has no local LED or buzzer outputs.
+   - Enter Idle sleep with the analog comparator interrupt as the only active
+     interrupt source.
+   - When the monitored divider voltage is restored, reinitialize the disabled
+     peripherals, raise one POWER_OK event, and return to normal operation.
+
+2. Inactivity sleep
+   - Remains SLEEP_MODE_PWR_DOWN.
+   - INT0 is configured as a low-level wake source immediately before sleep.
+   - Comparator interrupt is disabled during inactivity sleep, so INT0 is the
+     intended wake source.
+   - After INT0 wake, the comparator is re-enabled and its current state is
+     resynchronized.
+
+3. Timing correctness
+   - Added timer_get_seconds() for atomic 32-bit timestamp reads.
+   - All direct main.c reads of system_time_s were replaced.
+   - Timer0 restoration now stops the timer first, clears OCF0, restores OCR0,
+     TCNT0 and TIMSK, then restores TCCR0 last.
+
+4. Startup failure
+   - If the monitored voltage is already low at startup, one POWER_FAIL event
+     is generated and the Master enters comparator-only standby.

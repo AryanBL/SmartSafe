@@ -1,0 +1,21 @@
+Master LCD and UI-hold update
+================================
+
+1. The Master LCD now displays only:
+   - Enter Password:
+   - One * for every entered digit on row 2
+
+2. Removed Master LCD event/status messages, including startup splash, access
+   result, tamper warning, wrong-password warning, and lockout text. The Slave
+   owns all event/status display.
+
+3. ui_hold_until remains as an input-inhibit timer only. During a hold:
+   - keypad input is blocked;
+   - inactivity sleep is blocked;
+   - the Master LCD is not changed.
+
+4. activity_timer is reset when a hold starts and again when it ends, giving
+   the user a complete 10-second active period after keypad input resumes.
+
+5. activity_timer is also reset when a 30-second lockout ends, preventing an
+   immediate inactivity sleep after lockout release.
