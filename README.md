@@ -308,20 +308,3 @@ The repository includes source `.tex` documents and rendered PDF reports coverin
 
 See `SmartSafe_Complete_Project_Engineering_Report.pdf` for the consolidated engineering documentation.
 
-## Git Notes
-
-A repository-specific `.gitignore` is included. It excludes common generated or machine-local files such as:
-
-- Atmel Studio / Visual Studio local state (`.vs/`, `.atsuo`)
-- AVR build outputs and object files
-- `Debug/` build directories
-- Proteus autosaves/backups and local workspace state
-- LaTeX intermediate build files
-
-Source code, project/solution files, the main Proteus project, documentation sources, and project PDFs remain trackable.
-
-If generated files were committed before adding `.gitignore`, `.gitignore` will not automatically remove them from Git's index. They can be untracked separately while keeping the local files.
-
-## License
-
-No license file is currently included in this project. Add a `LICENSE` file before distributing or publishing the project if specific reuse terms are required.
